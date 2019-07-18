@@ -13,23 +13,20 @@
   "author": "LouieK22 <louie@tinybits.me> (https://github.com/LouieK22)",
   "homepage": "https://github.com/LouieK22/blox-api",
   "repository": {
-	  "type": "git",
-	  "url": "git@github.com:LouieK22/blox-api.git"
+    "type": "git",
+    "url": "git@github.com:LouieK22/blox-api.git"
   },
   "bugs": {
-	  "url": "https://github.com/LouieK22/blox-api/issues"
+    "url": "https://github.com/LouieK22/blox-api/issues"
   },
   "license": "MIT",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "axios": "^0.19.0",
-    "cookie": "^0.4.0",
     "keyv": "^3.1.0",
     "keyv-file": "^0.1.13",
     "superagent": "^5.1.0"
   },
   "devDependencies": {
-    "@types/cookie": "^0.3.3",
     "@types/keyv": "^3.1.0",
     "@types/node": "^12.6.2",
     "@types/superagent": "^4.1.3"
