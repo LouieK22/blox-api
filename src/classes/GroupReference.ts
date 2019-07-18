@@ -88,4 +88,18 @@ export class GroupReference {
 				roleId: roleset.id,
 			});
 	}
+
+	/**
+	 * Exiles a user from the group
+	 *
+	 * @param userId User to exile
+	 */
+	public async exileUser(userId: number) {
+		const csrfToken = await getCSRFToken(this.session);
+
+		await request
+			.delete(`https://groups.roblox.com/v1/groups/${this.groupId}/users/${userId}`)
+			.set("Cookie", this.session.cookie)
+			.set("X-CSRF-TOKEN", csrfToken);
+	}
 }
