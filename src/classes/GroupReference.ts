@@ -1,4 +1,5 @@
 import * as request from "superagent";
+import * as cheerio from "cheerio";
 
 import { IRobloxSession } from "..";
 import { getCSRFToken } from "../lib/auth";
@@ -101,5 +102,50 @@ export class GroupReference {
 			.delete(`https://groups.roblox.com/v1/groups/${this.groupId}/users/${userId}`)
 			.set("Cookie", this.session.cookie)
 			.set("X-CSRF-TOKEN", csrfToken);
+	}
+
+	/**
+	 * Get the internal join request ID for a specific user
+	 *
+	 * @param username Username of the pending user
+	 */
+	public async getJoinRequestId(username: string) {
+		const httpRes = await request
+			.get(`https://www.roblox.com/groups/${this.groupId}/joinrequests-html`)
+			.query({
+				username,
+			})
+			.set("Cookie", this.session.cookie);
+
+		const $ = cheerio.load(httpRes.text);
+		const found = $("#JoinRequestsList").find("tr");
+		const len = found.length;
+
+		if (len === 1) {
+			throw new Error("Join request does not exist");
+		}
+
+		for (let i = 1; i < len - 1; i++) {
+			const data = found.eq(i).find("td");
+
+			if (data.eq(1).text() === username) {
+				return data.eq(3).find("span").attr("data-rbx-join-request");
+			}
+		}
+
+		throw new Error("Join request does not exist");
+	}
+
+	public async acceptJoinRequest(username: string) {
+		const joinRequestId = await this.getJoinRequestId(username);
+		const csrfToken = await getCSRFToken(this.session);
+
+		await request
+			.post("https://www.roblox.com/group/handle-join-request")
+			.set("Cookie", this.session.cookie)
+			.set("X-CSRF-TOKEN", csrfToken)
+			.send({
+				groupJoinRequestId: joinRequestId,
+			});
 	}
 }

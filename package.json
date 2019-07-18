@@ -22,11 +22,13 @@
   "license": "MIT",
   "types": "dist/index.d.ts",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
     "keyv": "^3.1.0",
     "keyv-file": "^0.1.13",
     "superagent": "^5.1.0"
   },
   "devDependencies": {
+    "@types/cheerio": "^0.22.12",
     "@types/keyv": "^3.1.0",
     "@types/node": "^12.6.2",
     "@types/superagent": "^4.1.3"
