@@ -115,7 +115,6 @@ export class RobloxClient {
 
 		try {
 			this.session = await refreshSessionFromCookie(cookie);
-			console.log(this.session.cookie);
 
 			this.storageKeyv.set(userId, this.session);
 		} catch (err) {
