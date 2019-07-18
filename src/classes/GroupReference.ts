@@ -136,6 +136,11 @@ export class GroupReference {
 		throw new Error("Join request does not exist");
 	}
 
+	/**
+	 * Accept a user's request to join a group
+	 *
+	 * @param username Username of the pending user
+	 */
 	public async acceptJoinRequest(username: string) {
 		const joinRequestId = await this.getJoinRequestId(username);
 		const csrfToken = await getCSRFToken(this.session);
