@@ -12,7 +12,7 @@ export interface IRobloxSession {
 export async function getCSRFToken(session: IRobloxSession) {
 	try {
 		const httpRes = await request
-			.post("https://api.roblox.com/sign-out/v1")
+			.post("https://auth.roblox.com/v1/logout")
 			.set("Cookie", session.cookie)
 			.redirects(0)
 			.ok((res) => {
