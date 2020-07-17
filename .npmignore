@@ -1,0 +1,8 @@
+docs/
+src/
+.prettierrc.json
+.gitignore
+.prettierignore
+tsconfig.json
+tslint.json
+.editorconfig
